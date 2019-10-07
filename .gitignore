@@ -16,3 +16,5 @@
 *.txt
 *.ipch
 starskyAddon/Debug/starskyAddon.log
+starskyAddon/Debug/*
+starskyAddon/Release/*
