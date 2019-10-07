@@ -18,3 +18,17 @@ ipch
 *.tlog
 *.idb
 *.pdb
+*.log
+.vs/starskyAddon/v16/.suo
+*.ipch
+*.dll
+*.iobj
+*.ipdb
+*.pdb
+*.obj
+*.log
+*.tlog
+*.lastbuildstate
+*.tlog
+*.txt
+*.pdb
