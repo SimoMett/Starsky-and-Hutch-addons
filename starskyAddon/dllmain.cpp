@@ -5,6 +5,8 @@
 #include <Psapi.h>
 #include <fstream>
 
+#include "StarskyAddresses.h"
+
 using std::cout;
 using std::endl;
 
@@ -25,14 +27,14 @@ void CreateConsole()
 
 void ActivatePointsCheat()
 {
-	short* instr = (short*)0x4FB314;
+	short* instr = (short*)GAME_ASM_POINTS_UPDATE;
 
 	BYTE newInstr[] = { 0x90,0x90 };
 
 	WriteProcessMemory(GetCurrentProcess(), (void*)instr, &newInstr, 2, 0);
 
 	float** points;
-	points = (float**)0x692894;
+	points = (float**)GAME_POINTS_DPTR;
 
 	**points = 1000.0;
 	
