@@ -6,3 +6,15 @@
 ipch
 .db
 .suo
+*.dll
+.vs/starskyAddon/v16/.suo
+*.db
+*.opendb
+*.ilk
+*.pdb
+*.log
+*.obj
+*.log
+*.tlog
+*.idb
+*.pdb
