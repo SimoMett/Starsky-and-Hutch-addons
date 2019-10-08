@@ -6,11 +6,9 @@
 *.log
 *.obj
 *.idb
-*.dll
 *.iobj
 *.ipdb
 *.pdb
-*.log
 *.lastbuildstate
 *.tlog
 *.txt
@@ -18,9 +16,4 @@
 starskyAddon/Debug/starskyAddon.log
 starskyAddon/Debug/*
 starskyAddon/Release/*
-*.log
 starskyAddon/Debug/starskyAddon.vcxproj.FileListAbsolute.txt
-starskyAddon/Debug/starskyAddon.log
-*.log
-*.txt
-starskyAddon/Debug/starskyAddon.log
