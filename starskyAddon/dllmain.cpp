@@ -11,6 +11,9 @@
 using std::cout;
 using std::endl;
 
+typedef void (*FunctionType)(int a, int b, int c);
+FunctionType original;//TODO rename
+
 void CreateConsole()
 {
 	AllocConsole();
@@ -53,6 +56,11 @@ DWORD WINAPI keysLoop(void * data)
 			{
 				ActivatePointsCheat();
 			}
+
+			if (GetAsyncKeyState('T') & 0x8000)
+			{
+				original(0,0,0);
+			}
 		}
 	}
 }
@@ -68,6 +76,14 @@ DWORD WINAPI Input(void* data)
 	}
 }
 
+void overridden_func(int a, int b, int c)//TODO rename
+{
+	printf(" %d %d %f\n", a, b, c);
+	printf(" %d %d %d\n", a, b, c);
+	//original(a, b, c);
+	//return 1;
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     switch (ul_reason_for_call)
@@ -81,6 +97,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		printf("ADDON STARTED\n");
 		
 		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
+
+		original=(FunctionType)DetourFunction((PBYTE)GAME_TURBO_FUNC, (PBYTE)overridden_func);//TODO rename
 		break;
 	}
     case DLL_THREAD_ATTACH:
