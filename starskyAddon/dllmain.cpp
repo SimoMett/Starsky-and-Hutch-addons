@@ -27,7 +27,7 @@ void CreateConsole()
 
 void ActivatePointsCheat()
 {
-	short* instr = (short*)GAME_ASM_POINTS_UPDATE;//This address maybe it is incorrect. It bugs collision with dynamic objects
+	short* instr = (short*)GAME_ASM_POINTS_UPDATE;//This address maybe is incorrect. It bugs collision with dynamic objects
 
 	BYTE newInstr[] = { 0x90,0x90 };
 
