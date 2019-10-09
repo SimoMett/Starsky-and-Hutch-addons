@@ -5,6 +5,7 @@
 #include <Psapi.h>
 #include <fstream>
 
+#include "detours/detours.h"
 #include "StarskyAddresses.h"
 
 using std::cout;
