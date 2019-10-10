@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
+#include <string>
 #include <Windows.h>
 #include <Psapi.h>
 #include <fstream>
@@ -11,8 +12,8 @@
 using std::cout;
 using std::endl;
 
-typedef void (*FunctionType)(int a, int b, int c);
-FunctionType original;//TODO rename
+typedef void (*FunctionType)(int a, int b, float time);
+FunctionType originalTurboFunc;
 
 void CreateConsole()
 {
@@ -45,6 +46,8 @@ void ActivatePointsCheat()
 	cout << "ActivatePointCheat()" << endl;
 }
 
+float turboFactor = 4.5;
+
 DWORD WINAPI keysLoop(void * data)
 {
 	while (true)
@@ -59,7 +62,8 @@ DWORD WINAPI keysLoop(void * data)
 
 			if (GetAsyncKeyState('T') & 0x8000)
 			{
-				original(0,0,0);
+				int* strangeNumber = (int*)0x692450;
+				originalTurboFunc(*strangeNumber,0,turboFactor);
 			}
 		}
 	}
@@ -67,21 +71,26 @@ DWORD WINAPI keysLoop(void * data)
 
 DWORD WINAPI Input(void* data)
 {
-	std::string input;
 	while (true)
 	{
-		std::cin >> input;
+		std::string input;
+		std::getline(std::cin, input);
 
-		cout << "Command: " << input << endl;
+		std::string cmd (input.substr(0, input.find_first_of(" ")));
+		std::string params(input.substr(input.find_first_of(" ")+1));
+
+		if (cmd == "setturbotime")
+		{
+			turboFactor = std::stof(params);
+			cout << "Set turbo time to "<<turboFactor << endl;
+		}
 	}
 }
 
-void overridden_func(int a, int b, int c)//TODO rename
+void overriddenTurboFunc(int a, int b, float time)
 {
-	printf(" %d %d %f\n", a, b, c);
-	printf(" %d %d %d\n", a, b, c);
-	//original(a, b, c);
-	//return 1;
+	printf(" %d %d %f\n", a, b, time);
+	originalTurboFunc(a, b, time);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -98,7 +107,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		
 		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
 
-		original=(FunctionType)DetourFunction((PBYTE)GAME_TURBO_FUNC, (PBYTE)overridden_func);//TODO rename
+		originalTurboFunc=(FunctionType)DetourFunction((PBYTE)GAME_TURBO_FUNC, (PBYTE)overriddenTurboFunc);//TODO rename
 		break;
 	}
     case DLL_THREAD_ATTACH:
