@@ -12,8 +12,11 @@
 using std::cout;
 using std::endl;
 
-typedef void (*TurboFuncType)(int a, int b, float time);
-TurboFuncType originalTurboFunc;
+typedef void (*TurboFuncType)(int a, int type, float time);
+TurboFuncType originalActionFunc;
+
+typedef void (*SirenFuncType)();
+SirenFuncType originalSirenFunc;
 
 void CreateConsole()
 {
@@ -46,7 +49,8 @@ void ActivatePointsCheat()
 	cout << "ActivatePointCheat()" << endl;
 }
 
-float turboFactor = 4.5;
+float actionFactor = 4.5;
+int actionType = GameActionTypes::Turbo;
 
 DWORD WINAPI keysLoop(void * data)
 {
@@ -63,7 +67,7 @@ DWORD WINAPI keysLoop(void * data)
 			if (GetAsyncKeyState('T') & 0x8000)
 			{
 				int* strangeNumber = (int*)0x692450;
-				originalTurboFunc(*strangeNumber,0,turboFactor);
+				originalActionFunc(*strangeNumber,actionType,actionFactor);
 			}
 		}
 	}
@@ -79,18 +83,27 @@ DWORD WINAPI Input(void* data)
 		std::string cmd (input.substr(0, input.find_first_of(" ")));
 		std::string params(input.substr(input.find_first_of(" ")+1));
 
-		if (cmd == "setturbotime")
+		if (cmd == "setactiontime")
 		{
-			turboFactor = std::stof(params);
-			cout << "Set turbo time to "<<turboFactor << endl;
+			actionFactor = std::stof(params);
+			cout << "Set action time to "<<actionFactor << endl;
+		}
+		if (cmd == "setactiontype")
+		{
+			actionType = std::stoi(params);
+			cout << "Set action type to " << actionType << endl;
 		}
 	}
 }
 
-void overriddenTurboFunc(int a, int b, float time)
+/*
+	Actyally this function is not for turbo only. It is multi-purpose.
+	It can activate several actions, like turbo, siren..
+*/
+void overriddenActionFunc(int a, int type, float time)
 {
-	printf(" %d %d %f\n", a, b, time);
-	originalTurboFunc(a, b, time);
+	printf(" %d %d %f\n", a, type, time);
+	originalActionFunc(a, type, time);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -107,7 +120,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		
 		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
 
-		originalTurboFunc=(TurboFuncType)DetourFunction((PBYTE)GAME_TURBO_FUNC, (PBYTE)overriddenTurboFunc);//TODO rename
+		originalActionFunc=(TurboFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 		break;
 	}
     case DLL_THREAD_ATTACH:
