@@ -12,8 +12,8 @@
 using std::cout;
 using std::endl;
 
-typedef void (*FunctionType)(int a, int b, float time);
-FunctionType originalTurboFunc;
+typedef void (*TurboFuncType)(int a, int b, float time);
+TurboFuncType originalTurboFunc;
 
 void CreateConsole()
 {
@@ -107,7 +107,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		
 		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
 
-		originalTurboFunc=(FunctionType)DetourFunction((PBYTE)GAME_TURBO_FUNC, (PBYTE)overriddenTurboFunc);//TODO rename
+		originalTurboFunc=(TurboFuncType)DetourFunction((PBYTE)GAME_TURBO_FUNC, (PBYTE)overriddenTurboFunc);//TODO rename
 		break;
 	}
     case DLL_THREAD_ATTACH:
