@@ -15,9 +15,6 @@ using std::endl;
 typedef void (*TurboFuncType)(int a, int type, float time);
 TurboFuncType originalActionFunc;
 
-typedef void (*SirenFuncType)();
-SirenFuncType originalSirenFunc;
-
 void CreateConsole()
 {
 	AllocConsole();
