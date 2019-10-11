@@ -106,7 +106,7 @@ DWORD WINAPI Input(void* data)
 */
 void overriddenActionFunc(int a, int type, float time)
 {
-	printf(" %d %d %f\n", a, type, time);
+	printf("Action(%d %d %f)\n", a, type, time);
 	originalActionFunc(a, type, time);
 }
 
@@ -124,6 +124,7 @@ BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfByt
 	GetFileInformationByHandleEx(hFile, FileNameInfo, (LPVOID)stringa, 40);
 
 	cout << "Read "<<(int)nNumberOfBytesToRead<<" bytes from: " << string(stringa) << endl;
+
 	return originalReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
 }
 
