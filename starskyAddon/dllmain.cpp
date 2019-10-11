@@ -16,23 +16,10 @@ using std::string;
 typedef void (*ActionFuncType)(int a, int type, float time);
 ActionFuncType originalActionFunc;
 
-typedef HANDLE (WINAPI *CreateFileAFuncType)(
-	LPCSTR lpFileName,
-	DWORD dwDesiredAccess,
-	DWORD dwShareMode,
-	LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-	DWORD dwCreationDisposition,
-	DWORD dwFlagsAndAttributes,
-	HANDLE hTemplateFile);
+typedef HANDLE (WINAPI *CreateFileAFuncType)(LPCSTR ,DWORD ,DWORD ,LPSECURITY_ATTRIBUTES ,DWORD ,DWORD ,HANDLE);
 CreateFileAFuncType originalCreateFileA;
 
-typedef BOOL (WINAPI *ReadFileFuncType)(
-	HANDLE       hFile,
-	LPVOID       lpBuffer,
-	DWORD        nNumberOfBytesToRead,
-	LPDWORD      lpNumberOfBytesRead,
-	LPOVERLAPPED lpOverlapped
-	);
+typedef BOOL (WINAPI *ReadFileFuncType)(HANDLE ,LPVOID ,DWORD ,LPDWORD ,LPOVERLAPPED);
 ReadFileFuncType originalReadFile;
 
 void CreateConsole()
