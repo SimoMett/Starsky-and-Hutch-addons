@@ -11,9 +11,29 @@
 
 using std::cout;
 using std::endl;
+using std::string;
 
 typedef void (*ActionFuncType)(int a, int type, float time);
 ActionFuncType originalActionFunc;
+
+typedef HANDLE (WINAPI *CreateFileAFuncType)(
+	LPCSTR lpFileName,
+	DWORD dwDesiredAccess,
+	DWORD dwShareMode,
+	LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+	DWORD dwCreationDisposition,
+	DWORD dwFlagsAndAttributes,
+	HANDLE hTemplateFile);
+CreateFileAFuncType originalCreateFileA;
+
+typedef BOOL (WINAPI *ReadFileFuncType)(
+	HANDLE       hFile,
+	LPVOID       lpBuffer,
+	DWORD        nNumberOfBytesToRead,
+	LPDWORD      lpNumberOfBytesRead,
+	LPOVERLAPPED lpOverlapped
+	);
+ReadFileFuncType originalReadFile;
 
 void CreateConsole()
 {
@@ -103,6 +123,23 @@ void overriddenActionFunc(int a, int type, float time)
 	originalActionFunc(a, type, time);
 }
 
+HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
+{
+	cout << "Opening file: " << lpFileName << endl;
+	return originalCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+}
+
+BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
+{
+	char stringa[40];
+	memset(stringa, 0, 40);
+
+	GetFileInformationByHandleEx(hFile, FileNameInfo, (LPVOID)stringa, 40);
+
+	cout << "Read "<<(int)nNumberOfBytesToRead<<" bytes from: " << string(stringa) << endl;
+	return originalReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     switch (ul_reason_for_call)
@@ -111,11 +148,14 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 	{
 		CreateConsole();
 
-		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
-
 		printf("ADDON STARTED\n");
+
+		originalCreateFileA = (CreateFileAFuncType)DetourFunction((PBYTE)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "CreateFileA"), (PBYTE)overriddenCreateFileA);
+		originalReadFile = (ReadFileFuncType)DetourFunction((PBYTE)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "ReadFile"), (PBYTE)overriddenReadFile);
 		
 		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
+
+		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
 		originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 		break;
