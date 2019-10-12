@@ -16,10 +16,16 @@
     <Filter Include="detours">
       <UniqueIdentifier>{84a7b64e-3268-478d-8095-58e72b749859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EasyDetour">
+      <UniqueIdentifier>{998eb0a1-1835-4a18-b8ca-2f016787469d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyDetour.cpp">
+      <Filter>EasyDetour</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +34,9 @@
     </ClInclude>
     <ClInclude Include="detours\detours.h">
       <Filter>detours</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyDetour.h">
+      <Filter>EasyDetour</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

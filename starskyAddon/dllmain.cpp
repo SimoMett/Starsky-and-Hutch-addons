@@ -8,6 +8,7 @@
 
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
+#include "EasyDetour.h"
 
 using std::cout;
 using std::endl;
@@ -145,7 +146,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 
 		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
-		originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
+		EasyDetour<ActionFuncType>::ApplyEasyDetour((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc,"ActionFunc");
+		originalActionFunc = (ActionFuncType)EasyDetour<ActionFuncType>::GetOriginalFuncAddr("ActionFunc");
+		//originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 		break;
 	}
     case DLL_THREAD_ATTACH:
