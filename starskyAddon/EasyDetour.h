@@ -5,30 +5,29 @@
 #include <map>
 #include "detours/detours.h"
 
+//This class needs some reworks
+
 template <class FuncType>
 class EasyDetour
 {
 public:
-	static EasyDetour * ApplyEasyDetour(PBYTE _targetFunc, PBYTE _detourFunc, const std::string & funcName)
+	static FuncType ApplyEasyDetour(PBYTE _targetFunc, PBYTE _detourFunc, const std::string & funcName)
 	{
-		EasyDetour * detour=new EasyDetour(_targetFunc, _detourFunc);
+		FuncType _originalFunc = nullptr;
+		EasyDetour * detour=new EasyDetour(_targetFunc, _detourFunc, _originalFunc);
 
 		std::pair<std::string, EasyDetour*> _pair (funcName, detour);
 
 		patches.insert(_pair);
-		return detour;
-	}
-
-	static const PBYTE GetOriginalFuncAddr(std::string key)
-	{
-		return patches[key]->originalFunc;
+		return _originalFunc;
 	}
 	
 private:
 
-	EasyDetour(PBYTE _targetFunc, PBYTE _detourFunc) : targetFunc(_targetFunc), detourFunc(_detourFunc)
+	EasyDetour(PBYTE _targetFunc, PBYTE _detourFunc, FuncType & _originalFunc) : targetFunc(_targetFunc), detourFunc(_detourFunc)
 	{
 		originalFunc = (FuncType)DetourFunction(targetFunc, detourFunc);
+		_originalFunc = originalFunc;
 	}
 
 	static std::map<std::string, EasyDetour*> patches;
