@@ -9,18 +9,16 @@
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
 #include "EasyDetour.h"
+#include "overriddenFunctions.h"
 
 using std::cout;
 using std::endl;
 using std::string;
 
-typedef void (*ActionFuncType)(int a, int type, float time);
 ActionFuncType originalActionFunc;
 
-typedef HANDLE (WINAPI *CreateFileAFuncType)(LPCSTR ,DWORD ,DWORD ,LPSECURITY_ATTRIBUTES ,DWORD ,DWORD ,HANDLE);
 CreateFileAFuncType originalCreateFileA;
 
-typedef BOOL (WINAPI *ReadFileFuncType)(HANDLE ,LPVOID ,DWORD ,LPDWORD ,LPOVERLAPPED);
 ReadFileFuncType originalReadFile;
 
 void CreateConsole()
@@ -113,21 +111,40 @@ void overriddenActionFunc(int a, int type, float time)
 
 HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
 {
-	cout << "Opening file: " << lpFileName << endl;
+	//cout << "Opening file: " << lpFileName << endl;
 	return originalCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
 {
-	char stringa[40];
-	memset(stringa, 0, 40);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		char stringa[40];
+		memset(stringa, 0, 40);
 
-	GetFileInformationByHandleEx(hFile, FileNameInfo, (LPVOID)stringa, 40);
+		GetFileInformationByHandleEx(hFile, FileNameInfo, (LPVOID)stringa, 40);
 
-	cout << "Read "<<(int)nNumberOfBytesToRead<<" bytes from: " << string(stringa) << endl;
+		//printf("Read %d bytes from: %s\n", (int)nNumberOfBytesToRead, stringa);
+	}
 
 	return originalReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
 }
+
+sub_45E3E0 originalSub_45E3E0;
+
+sub_45EBF2 originalSub_45EBF2;
+
+HANDLE WINAPI overriddenSub_45E3E0(LPCSTR lpFileName, int a2, int a3, int a4, int a5)
+{
+	printf("sub_45E3E0(\"%s\",%d,%d,%d,%d)\n", lpFileName, a2, a3, a4, a5);
+	return originalSub_45E3E0(lpFileName, a2, a3, a4, a5);
+}
+
+int overriddenSub_45EBF2(int _this, signed int* a2)
+{
+	return originalSub_45EBF2(_this, a2);
+}
+
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
@@ -146,9 +163,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 
 		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
-		originalActionFunc = EasyDetour<ActionFuncType>::ApplyEasyDetour((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc,"ActionFunc");
+		originalActionFunc = (ActionFuncType) EasyDetour::ApplyEasyDetour((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 		//originalActionFunc = (ActionFuncType)EasyDetour<ActionFuncType>::GetOriginalFuncAddr("ActionFunc");
 		//originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
+		//originalSub_45E3E0 = (sub_45E3E0)(DetourFunction((PBYTE)0x45E3E0, (PBYTE)overriddenSub_45E3E0));
+		originalSub_45EBF2 = (sub_45EBF2)DetourFunction((PBYTE)0x45EBF2, (PBYTE)overriddenSub_45EBF2);
 		break;
 	}
     case DLL_THREAD_ATTACH:
