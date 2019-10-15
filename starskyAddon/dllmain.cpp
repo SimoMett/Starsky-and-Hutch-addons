@@ -164,10 +164,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
 		originalActionFunc = (ActionFuncType) EasyDetour::ApplyEasyDetour((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
-		//originalActionFunc = (ActionFuncType)EasyDetour<ActionFuncType>::GetOriginalFuncAddr("ActionFunc");
-		//originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 		//originalSub_45E3E0 = (sub_45E3E0)(DetourFunction((PBYTE)0x45E3E0, (PBYTE)overriddenSub_45E3E0));
-		originalSub_45EBF2 = (sub_45EBF2)DetourFunction((PBYTE)0x45EBF2, (PBYTE)overriddenSub_45EBF2);
+		//originalSub_45EBF2 = (sub_45EBF2)DetourFunction((PBYTE)0x45EBF2, (PBYTE)overriddenSub_45EBF2);//member function
 		break;
 	}
     case DLL_THREAD_ATTACH:
