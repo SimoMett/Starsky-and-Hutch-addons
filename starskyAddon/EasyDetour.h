@@ -7,16 +7,15 @@
 
 //This class needs some reworks
 
-template <class FuncType>
 class EasyDetour
 {
 public:
-	static FuncType ApplyEasyDetour(PBYTE _targetFunc, PBYTE _detourFunc, const std::string & funcName)
+	static void * ApplyEasyDetour(PBYTE _targetFunc, PBYTE _detourFunc)
 	{
-		FuncType _originalFunc = nullptr;
+		void* _originalFunc = nullptr;
 		EasyDetour * detour=new EasyDetour(_targetFunc, _detourFunc, _originalFunc);
 
-		std::pair<std::string, EasyDetour*> _pair (funcName, detour);
+		std::pair<void *, EasyDetour*> _pair (_originalFunc, detour);
 
 		patches.insert(_pair);
 		return _originalFunc;
@@ -24,19 +23,16 @@ public:
 	
 private:
 
-	EasyDetour(PBYTE _targetFunc, PBYTE _detourFunc, FuncType & _originalFunc) : targetFunc(_targetFunc), detourFunc(_detourFunc)
+	EasyDetour(PBYTE _targetFunc, PBYTE _detourFunc, void* & _originalFunc) : targetFunc(_targetFunc), detourFunc(_detourFunc)
 	{
-		originalFunc = (FuncType)DetourFunction(targetFunc, detourFunc);
+		originalFunc = (void*)DetourFunction(targetFunc, detourFunc);
 		_originalFunc = originalFunc;
 	}
-
-	static std::map<std::string, EasyDetour*> patches;
 	
 	PBYTE targetFunc;
 	PBYTE detourFunc;
 	
-	FuncType originalFunc;
-};
+	void* originalFunc;
 
-template <class FuncType>
-std::map<std::string , EasyDetour<FuncType>*> EasyDetour<FuncType>::patches;
+	static std::map<void*, EasyDetour*> patches;
+};
