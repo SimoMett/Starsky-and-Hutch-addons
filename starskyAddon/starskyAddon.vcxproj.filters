@@ -27,6 +27,9 @@
     <ClCompile Include="EasyDetour.cpp">
       <Filter>EasyDetour</Filter>
     </ClCompile>
+    <ClCompile Include="overriddenFunctions.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StarskyAddresses.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="EasyDetour.h">
       <Filter>EasyDetour</Filter>
+    </ClInclude>
+    <ClInclude Include="overriddenFunctions.h">
+      <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
