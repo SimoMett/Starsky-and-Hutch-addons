@@ -1,6 +1,12 @@
 #pragma once
 
+#include <iostream>
 #include <Windows.h>
+
+#include "EasyDetour.h"
+
+using std::cout;
+using std::endl;
 
 //Types definitions
 
@@ -13,3 +19,6 @@ typedef BOOL(WINAPI* ReadFileFuncType)(HANDLE, LPVOID, DWORD, LPDWORD, LPOVERLAP
 typedef HANDLE(WINAPI* sub_45E3E0)(LPCSTR, int, int, int, int);
 
 typedef int(*sub_45EBF2)(int, signed int*);
+
+//Override prototypes
+HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
