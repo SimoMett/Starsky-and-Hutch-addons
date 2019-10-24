@@ -163,9 +163,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="OverriddenFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="detours\detours.h" />
+    <ClInclude Include="OverriddenFunctions.h" />
     <ClInclude Include="StarskyAddresses.h" />
   </ItemGroup>
   <ItemGroup>

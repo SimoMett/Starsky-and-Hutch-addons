@@ -21,6 +21,9 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="OverriddenFunctions.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StarskyAddresses.h">
@@ -28,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="detours\detours.h">
       <Filter>detours</Filter>
+    </ClInclude>
+    <ClInclude Include="OverriddenFunctions.h">
+      <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

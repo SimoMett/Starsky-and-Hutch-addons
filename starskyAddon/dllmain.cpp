@@ -8,19 +8,11 @@
 
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
+#include "OverriddenFunctions.h"
 
 using std::cout;
 using std::endl;
 using std::string;
-
-typedef void (*ActionFuncType)(int a, int type, float time);
-ActionFuncType originalActionFunc;
-
-typedef HANDLE (WINAPI *CreateFileAFuncType)(LPCSTR ,DWORD ,DWORD ,LPSECURITY_ATTRIBUTES ,DWORD ,DWORD ,HANDLE);
-CreateFileAFuncType originalCreateFileA;
-
-typedef BOOL (WINAPI *ReadFileFuncType)(HANDLE ,LPVOID ,DWORD ,LPDWORD ,LPOVERLAPPED);
-ReadFileFuncType originalReadFile;
 
 void CreateConsole()
 {
@@ -100,34 +92,6 @@ DWORD WINAPI Input(void* data)
 	}
 }
 
-/*
-	Actyally this function is not for turbo only. It is multi-purpose.
-	It can activate several actions, like turbo, siren..
-*/
-void overriddenActionFunc(int a, int type, float time)
-{
-	printf("Action(%d %d %f)\n", a, type, time);
-	originalActionFunc(a, type, time);
-}
-
-HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
-{
-	cout << "Opening file: " << lpFileName << endl;
-	return originalCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
-}
-
-BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
-{
-	char stringa[40];
-	memset(stringa, 0, 40);
-
-	GetFileInformationByHandleEx(hFile, FileNameInfo, (LPVOID)stringa, 40);
-
-	cout << "Read "<<(int)nNumberOfBytesToRead<<" bytes from: " << string(stringa) << endl;
-
-	return originalReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
-}
-
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     switch (ul_reason_for_call)
@@ -146,6 +110,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
 		originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
+		//originalSub_45E3E0 = (sub_45E3E0)(DetourFunction((PBYTE)0x45E3E0, (PBYTE)overriddenSub_45E3E0));
+		//originalSub_45EBF2 = (sub_45EBF2)DetourFunction((PBYTE)0x45EBF2, (PBYTE)overriddenSub_45EBF2);//member function
 		break;
 	}
     case DLL_THREAD_ATTACH:
