@@ -4,11 +4,10 @@ using std::cout;
 using std::string;
 using std::endl;
 
-
-
 ActionFuncType originalActionFunc;
 CreateFileAFuncType originalCreateFileA;
 ReadFileFuncType originalReadFile;
+overriddenToBeDefinedFuncType originalToBeDefined;
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
 {
@@ -36,4 +35,11 @@ HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DW
 {
 	cout << "Opening file: " << lpFileName << endl;
 	return originalCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+}
+
+int overriddenToBeDefined(char* a1)
+{
+	cout << "ToBeDefined Function:" << endl;
+	cout << "\t" << string(a1) <<endl;
+	return originalToBeDefined(a1);
 }
