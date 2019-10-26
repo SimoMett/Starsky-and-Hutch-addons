@@ -37,8 +37,7 @@ void ActivatePointsCheat()
 
 	WriteProcessMemory(GetCurrentProcess(), (void*)instr, &newInstr, 2, 0);
 
-	float** points;
-	points = (float**)GAME_POINTS_DPTR;
+	float** points=(float**)GAME_POINTS_DPTR;
 
 	**points = 1000.0;
 	
@@ -113,7 +112,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		//DetourAttach(&(PVOID &)originalReadFile, (PBYTE)overriddenReadFile);
 
 		DetourAttach(&(PVOID &)originalActionFunc, (PVOID)overriddenActionFunc);
-		//originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 
 		DetourAttach(&(PVOID &)originalToBeDefined, (PBYTE)overriddenToBeDefined);
 
