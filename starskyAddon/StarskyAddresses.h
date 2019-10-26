@@ -26,4 +26,6 @@ enum GameActionTypes
 
 /*Here I will write some notes too.
 
+	- 0x65556c car pool start?
+	- 0x6594cc oscillation camera angle
 */
