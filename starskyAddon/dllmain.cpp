@@ -102,24 +102,23 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 
 		printf("ADDON STARTED\n");
 
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
-
-		//DetourAttach((PVOID*)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "CreateFileA"), (PVOID)overriddenCreateFileA);
-		//originalReadFile = (ReadFileFuncType)DetourFunction((PBYTE)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "ReadFile"), (PBYTE)overriddenReadFile);
-		
 		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
 
 		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
-		originalActionFunc = (ActionFuncType)GAME_ACTION_FUNC;
+		DetourTransactionBegin();
+		DetourUpdateThread(GetCurrentThread());
+
+		DetourAttach(& (PVOID&) originalCreateFileA, (PVOID)overriddenCreateFileA);
+		//originalReadFile = (ReadFileFuncType)DetourFunction((PBYTE)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "ReadFile"), (PBYTE)overriddenReadFile);	
+
 		DetourAttach(&(PVOID &)originalActionFunc, (PVOID)overriddenActionFunc);
 		//originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);
 
 		//originalSub_45E3E0 = (sub_45E3E0)(DetourFunction((PBYTE)0x45E3E0, (PBYTE)overriddenSub_45E3E0));
 		//originalSub_45EBF2 = (sub_45EBF2)DetourFunction((PBYTE)0x45EBF2, (PBYTE)overriddenSub_45EBF2);//member function
 
-		//originalToBeDefined = (overriddenToBeDefinedFuncType)DetourFunction((PBYTE)GAME_TO_BE_DEFINED_FUNC, (PBYTE)overriddenToBeDefined);
+		DetourAttach(&(PVOID &)originalToBeDefined, (PBYTE)overriddenToBeDefined);
 
 		DetourTransactionCommit();
 		break;

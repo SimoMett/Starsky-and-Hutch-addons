@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <Windows.h>
+#include "StarskyAddresses.h"
 
 typedef void (*ActionFuncType)(int a, int type, float time);
 typedef HANDLE(WINAPI* CreateFileAFuncType)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
