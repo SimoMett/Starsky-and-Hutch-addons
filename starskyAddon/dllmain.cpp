@@ -110,7 +110,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		DetourUpdateThread(GetCurrentThread());
 
 		DetourAttach(& (PVOID&) originalCreateFileA, (PVOID)overriddenCreateFileA);
-		//originalReadFile = (ReadFileFuncType)DetourFunction((PBYTE)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "ReadFile"), (PBYTE)overriddenReadFile);	
+		//DetourAttach(&(PVOID &)originalReadFile, (PBYTE)overriddenReadFile);
 
 		DetourAttach(&(PVOID &)originalActionFunc, (PVOID)overriddenActionFunc);
 		//originalActionFunc=(ActionFuncType)DetourFunction((PBYTE)GAME_ACTION_FUNC, (PBYTE)overriddenActionFunc);

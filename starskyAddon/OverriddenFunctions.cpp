@@ -6,7 +6,7 @@ using std::endl;
 
 ActionFuncType originalActionFunc = (ActionFuncType)GAME_ACTION_FUNC;
 CreateFileAFuncType originalCreateFileA = CreateFileA;
-ReadFileFuncType originalReadFile;
+ReadFileFuncType originalReadFile = ReadFile;
 overriddenToBeDefinedFuncType originalToBeDefined = (overriddenToBeDefinedFuncType)GAME_TO_BE_DEFINED_FUNC;
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
