@@ -54,10 +54,10 @@ DWORD WINAPI keysLoop(void * data)
 		Sleep(100);
 		if (GetForegroundWindow() != GetConsoleWindow())
 		{
-			if (GetAsyncKeyState('B') & 0x8000)
+			/*if (GetAsyncKeyState('B') & 0x8000) //disabled for now
 			{
 				ActivatePointsCheat();
-			}
+			}*/
 
 			if (GetAsyncKeyState('T') & 0x8000)
 			{
