@@ -37,9 +37,13 @@ HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DW
 	return originalCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
-int overriddenToBeDefined(char* a1)
+TO_BE_TESTED_RETURN_TYPE overriddenToBeDefined(int a1)
 {
 	cout << "ToBeDefined Function:" << endl;
-	cout << "\t" << string(a1) <<endl;
-	return originalToBeDefined(a1);
+
+	char* result = originalToBeDefined(a1);
+
+	cout << "\t" << string(result) << endl;
+
+	return result;
 }

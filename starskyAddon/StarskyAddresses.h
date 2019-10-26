@@ -5,7 +5,8 @@
 #define GAME_ACTION_FUNC 0x501d6f //accepts 3 parameters (int, int, float)
 #define GAME_START_SIREN_SOUND 0x50E321 //maybe
 //#define GAME_SPAWN_VEHICLE //nope
-#define GAME_TO_BE_DEFINED_FUNC 0x59A500
+//#define GAME_TO_BE_DEFINED_FUNC 0x59A500
+#define GAME_TO_BE_DEFINED_FUNC 0x5FDE03
 
 enum GameActionTypes
 {
