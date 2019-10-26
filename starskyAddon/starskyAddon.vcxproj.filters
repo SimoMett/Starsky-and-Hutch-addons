@@ -35,6 +35,12 @@
     <ClInclude Include="OverriddenFunctions.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="detours\detver.h">
+      <Filter>detours</Filter>
+    </ClInclude>
+    <ClInclude Include="detours\syelog.h">
+      <Filter>detours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib">
