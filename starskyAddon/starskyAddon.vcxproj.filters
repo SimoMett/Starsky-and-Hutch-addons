@@ -16,6 +16,9 @@
     <Filter Include="detours">
       <UniqueIdentifier>{84a7b64e-3268-478d-8095-58e72b749859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="menu">
+      <UniqueIdentifier>{79506473-b19e-4756-84be-0a4f96d215f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -23,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="OverriddenFunctions.cpp">
       <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="CheatMenu.cpp">
+      <Filter>menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="detours\syelog.h">
       <Filter>detours</Filter>
+    </ClInclude>
+    <ClInclude Include="CheatMenu.h">
+      <Filter>menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,9 @@
 #include <Psapi.h>
 #include <fstream>
 
+#include <d3d9.h>
+#include <d3dx9.h>
+
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
 #include "OverriddenFunctions.h"
@@ -58,6 +61,11 @@ DWORD WINAPI keysLoop(void * data)
 			{
 				ActivatePointsCheat();
 			}*/
+
+			if (GetAsyncKeyState('M') & 0x8000)
+			{
+				//Show menu
+			}
 
 			if (GetAsyncKeyState('T') & 0x8000)
 			{
