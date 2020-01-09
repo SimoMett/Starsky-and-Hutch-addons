@@ -1,8 +1,11 @@
 #include "CheatMenu.h"
 
+using std::cout;
+using std::endl;
+
 CheatMenu * CheatMenu::instance = nullptr;
 
-CheatMenu::CheatMenu()
+CheatMenu::CheatMenu(): isShown(false)
 {
 
 }
@@ -14,13 +17,24 @@ void CheatMenu::Show()
 		instance = new CheatMenu();
 	}
 	//show..
+	cout << "show" << endl;
+	instance->isShown = true;
 }
 
 void CheatMenu::Hide()
 {
 	if (instance == nullptr)
 	{
-		//instance = new CheatMenu();
+		//TODO
 	}
-	//show..
+	cout << "hide" << endl;
+	instance->isShown = false;
+}
+
+bool CheatMenu::IsShown()
+{
+	if (instance == nullptr)
+		instance = new CheatMenu();
+
+	return instance->isShown;
 }
