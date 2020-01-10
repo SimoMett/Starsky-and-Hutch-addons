@@ -8,10 +8,14 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
 
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
 #include "OverriddenFunctions.h"
+#include "DInputHook.h"
+#include "CheatMenu.h"
 
 using std::cout;
 using std::endl;
@@ -64,7 +68,10 @@ DWORD WINAPI keysLoop(void * data)
 
 			if (GetAsyncKeyState('M') & 0x8000)
 			{
-				//Show menu
+				if (!CheatMenu::IsShown())
+					CheatMenu::Show();
+				else
+					CheatMenu::Hide();
 			}
 
 			if (GetAsyncKeyState('T') & 0x8000)
@@ -123,7 +130,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 
 		DetourAttach(&(PVOID &)originalToBeDefined, (PBYTE)overriddenToBeDefined);
 
-		DetourTransactionCommit();
+		//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DirectInputHook, NULL, NULL, NULL);
+		DirectInputHook();
+
+		DetourTransactionCommit();		
 		break;
 	}
     case DLL_THREAD_ATTACH:

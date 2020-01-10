@@ -5,8 +5,8 @@
 #include "StarskyAddresses.h"
 
 typedef void (*ActionFuncType)(int a, int type, float time);
-typedef HANDLE(WINAPI* CreateFileAFuncType)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
-typedef BOOL(WINAPI* ReadFileFuncType)(HANDLE, LPVOID, DWORD, LPDWORD, LPOVERLAPPED);
+typedef HANDLE (WINAPI* CreateFileAFuncType)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
+typedef BOOL (WINAPI* ReadFileFuncType)(HANDLE, LPVOID, DWORD, LPDWORD, LPOVERLAPPED);
 
 #define TO_BE_TESTED_SIGNATURE int a1
 #define TO_BE_TESTED_RETURN_TYPE char *

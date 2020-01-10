@@ -50,6 +50,9 @@
     <ClInclude Include="CheatMenu.h">
       <Filter>menu</Filter>
     </ClInclude>
+    <ClInclude Include="DInputHook.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib">

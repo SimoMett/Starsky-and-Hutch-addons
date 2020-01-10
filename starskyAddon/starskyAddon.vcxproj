@@ -176,6 +176,7 @@
     <ClInclude Include="detours\detours.h" />
     <ClInclude Include="detours\detver.h" />
     <ClInclude Include="detours\syelog.h" />
+    <ClInclude Include="DInputHook.h" />
     <ClInclude Include="OverriddenFunctions.h" />
     <ClInclude Include="StarskyAddresses.h" />
   </ItemGroup>
