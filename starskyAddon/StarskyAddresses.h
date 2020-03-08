@@ -3,10 +3,11 @@
 #define GAME_POINTS_DPTR 0x692894
 #define GAME_ASM_POINTS_UPDATE 0x4FB314 //This address maybe is incorrect. It bugs collision with dynamic objects
 #define GAME_ACTION_FUNC 0x501d6f //accepts 3 parameters (int, int, float)
-#define GAME_START_SIREN_SOUND 0x50E321 //maybe
+#define GAME_START_SIREN_SOUND 0x50E321
 //#define GAME_SPAWN_VEHICLE //nope
 //#define GAME_TO_BE_DEFINED_FUNC 0x59A500
 #define GAME_TO_BE_DEFINED_FUNC 0x5FDE03
+#define RESOURCE_FUNC 0x45E3E0//maybe
 
 enum GameActionTypes
 {
@@ -28,4 +29,5 @@ enum GameActionTypes
 
 	- 0x65556c car pool start?
 	- 0x6594cc oscillation camera angle
+	- 0x753850 zebra3 siren light status (if == 3 then light (only) is on)
 */

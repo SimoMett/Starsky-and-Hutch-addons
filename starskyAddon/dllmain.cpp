@@ -51,8 +51,8 @@ void ActivatePointsCheat()
 	cout << "ActivatePointCheat()" << endl;
 }
 
-float actionFactor = 4.5;
-int actionType = GameActionTypes::Turbo;
+float actionTimer = 60;
+int actionType = GameActionTypes::Siren;
 
 DWORD WINAPI keysLoop(void * data)
 {
@@ -77,7 +77,7 @@ DWORD WINAPI keysLoop(void * data)
 			if (GetAsyncKeyState('T') & 0x8000)
 			{
 				int* strangeNumber = (int*)0x692450;
-				originalActionFunc(*strangeNumber,actionType,actionFactor);
+				originalActionFunc(*strangeNumber,actionType,actionTimer);
 			}
 		}
 	}
@@ -95,8 +95,8 @@ DWORD WINAPI Input(void* data)
 
 		if (cmd == "setactiontime")
 		{
-			actionFactor = std::stof(params);
-			cout << "Set action time to "<<actionFactor << endl;
+			actionTimer = std::stof(params);
+			cout << "Set action time to "<<actionTimer << endl;
 		}
 		if (cmd == "setactiontype")
 		{
@@ -132,6 +132,12 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 
 		//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DirectInputHook, NULL, NULL, NULL);
 		DirectInputHook();
+
+		DetourAttach(&(PVOID&)originalResource, (PVOID)overriddenResource);
+
+		DetourAttach(&(PVOID&)originalToggleSirenSnd, (PVOID)hookedToggleSirenSnd);
+		DetourAttach(&(PVOID&)sub50E0D1, (PVOID)hookedSub_50E0D1);
+		DetourAttach(&(PVOID&)sub50E4DA, (PVOID)hookedSub_50E4DA);
 
 		DetourTransactionCommit();		
 		break;
