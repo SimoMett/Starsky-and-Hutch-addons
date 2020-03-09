@@ -13,6 +13,8 @@ ResourceFuncType originalResource = (ResourceFuncType)RESOURCE_FUNC;
 ToggleSirenSndFuncType originalToggleSirenSnd = (ToggleSirenSndFuncType)GAME_START_SIREN_SOUND;
 sub_50E0D1 sub50E0D1 = (sub_50E0D1)0x50E0D1;
 sub_50E4DA sub50E4DA = (sub_50E4DA)0x50E4DA;
+sub_45CF74 sub45CF74 = (sub_45CF74)0x45CF74;
+sub_45AA9B sub45AA9B = (sub_45AA9B)0x45AA9B;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
@@ -99,4 +101,18 @@ int __fastcall hookedSub_50E4DA(int _this, float sirenDelta)
 	//sirenDelta *= 0.5;
 	//cout << "this: " << std::hex << _this << " sirenDelta: " << sirenDelta << endl;
 	return sub50E4DA(_this, sirenDelta);
+}
+
+//unknown atm
+signed int __fastcall hookedSub_45CF74(DWORD* _this, int a2, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite)
+{
+	std::string buffer((char*)lpBuffer);
+	cout << "lpBuffer: " << buffer << endl;
+	return sub45CF74(_this, a2, lpBuffer, nNumberOfBytesToWrite);
+}
+
+int __fastcall hookedSub_45AA9B(DWORD* _this)
+{
+	cout << "sub_45AA9B: " << std::hex << _this << endl;
+	return sub45AA9B(_this);
 }

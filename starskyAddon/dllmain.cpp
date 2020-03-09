@@ -15,6 +15,7 @@
 #include "StarskyAddresses.h"
 #include "OverriddenFunctions.h"
 #include "DInputHook.h"
+#include "Logger.h"
 #include "CheatMenu.h"
 
 using std::cout;
@@ -110,45 +111,51 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 {
     switch (ul_reason_for_call)
     {
-    case DLL_PROCESS_ATTACH:
-	{
-		CreateConsole();
+		case DLL_PROCESS_ATTACH:
+		{
+			CreateConsole();
 
-		printf("ADDON STARTED\n");
+			Logger::Debug("ADDON STARTED\n");
 
-		HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
+			HANDLE input = CreateThread(NULL, 0, Input, NULL, 0, NULL);
 
-		HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
+			HANDLE thread = CreateThread(NULL, 0, keysLoop, NULL, 0, NULL);
 
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
+			DetourTransactionBegin();
+			DetourUpdateThread(GetCurrentThread());
 
-		DetourAttach(& (PVOID&) originalCreateFileA, (PVOID)overriddenCreateFileA);
-		//DetourAttach(&(PVOID &)originalReadFile, (PBYTE)overriddenReadFile);
+			DetourAttach(& (PVOID&) originalCreateFileA, (PVOID)overriddenCreateFileA);
+			//DetourAttach(&(PVOID &)originalReadFile, (PBYTE)overriddenReadFile);
 
-		DetourAttach(&(PVOID &)originalActionFunc, (PVOID)overriddenActionFunc);
+			DetourAttach(&(PVOID &)originalActionFunc, (PVOID)overriddenActionFunc);
 
-		DetourAttach(&(PVOID &)originalToBeDefined, (PBYTE)overriddenToBeDefined);
+			DetourAttach(&(PVOID &)originalToBeDefined, (PBYTE)overriddenToBeDefined);
 
-		//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DirectInputHook, NULL, NULL, NULL);
-		DirectInputHook();
+			//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DirectInputHook, NULL, NULL, NULL);
+			DirectInputHook();
 
-		DetourAttach(&(PVOID&)originalResource, (PVOID)overriddenResource);
+			DetourAttach(&(PVOID&)originalResource, (PVOID)overriddenResource);
 
-		DetourAttach(&(PVOID&)originalToggleSirenSnd, (PVOID)hookedToggleSirenSnd);
-		DetourAttach(&(PVOID&)sub50E0D1, (PVOID)hookedSub_50E0D1);
-		DetourAttach(&(PVOID&)sub50E4DA, (PVOID)hookedSub_50E4DA);
+			DetourAttach(&(PVOID&)originalToggleSirenSnd, (PVOID)hookedToggleSirenSnd);
 
-		DetourTransactionCommit();		
-		break;
-	}
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-	{
+			DetourAttach(&(PVOID&)sub50E0D1, (PVOID)hookedSub_50E0D1);
+			DetourAttach(&(PVOID&)sub50E4DA, (PVOID)hookedSub_50E4DA);
+			DetourAttach(&(PVOID&)sub45CF74, (PVOID)hookedSub_45CF74);
+			DetourAttach(&(PVOID&)sub45AA9B, (PVOID)hookedSub_45AA9B);
 
-	}
-    case DLL_PROCESS_DETACH:
-        break;
+			DetourTransactionCommit();		
+			break;
+		}
+		case DLL_THREAD_ATTACH:
+		case DLL_THREAD_DETACH:
+		{
+
+		}
+		case DLL_PROCESS_DETACH:
+		{
+			Logger::Close();
+			break;
+		} 
     }
     return TRUE;
 }

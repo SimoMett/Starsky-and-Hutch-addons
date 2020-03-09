@@ -19,6 +19,9 @@
     <Filter Include="menu">
       <UniqueIdentifier>{79506473-b19e-4756-84be-0a4f96d215f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FileLogClass">
+      <UniqueIdentifier>{d3342090-7c95-4d83-a888-cce9036d5de9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="CheatMenu.cpp">
       <Filter>menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>FileLogClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="DInputHook.h">
       <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>FileLogClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
