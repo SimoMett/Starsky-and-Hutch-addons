@@ -22,6 +22,9 @@
     <Filter Include="FileLogClass">
       <UniqueIdentifier>{d3342090-7c95-4d83-a888-cce9036d5de9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClasses">
+      <UniqueIdentifier>{0b860395-e01d-4d45-b6f2-c716e3607187}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>FileLogClass</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClasses\ResourceLoader.cpp">
+      <Filter>GameClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>FileLogClass</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\ResourceLoader.h">
+      <Filter>GameClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

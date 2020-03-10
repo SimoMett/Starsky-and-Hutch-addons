@@ -15,6 +15,7 @@ sub_50E0D1 sub50E0D1 = (sub_50E0D1)0x50E0D1;
 sub_50E4DA sub50E4DA = (sub_50E4DA)0x50E4DA;
 sub_45CF74 sub45CF74 = (sub_45CF74)0x45CF74;
 sub_45AA9B sub45AA9B = (sub_45AA9B)0x45AA9B;
+sub_45A3BC sub45A3BC = (sub_45A3BC)0x45A3BC;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
@@ -111,8 +112,19 @@ signed int __fastcall hookedSub_45CF74(DWORD* _this, int a2, LPCVOID lpBuffer, D
 	return sub45CF74(_this, a2, lpBuffer, nNumberOfBytesToWrite);
 }
 
+//unknown atm
 int __fastcall hookedSub_45AA9B(DWORD* _this)
 {
 	cout << "sub_45AA9B: " << std::hex << _this << endl;
 	return sub45AA9B(_this);
+}
+
+/*
+	This function is related to resource loading
+*/
+int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4)
+{
+	string str(a2);
+	cout << "hookedSub_45A3BC(" <<std::hex<< _this<<", "<<edx0 << ", " << str << ", " << a3 << ", " << a4 << ")" << endl;
+	return sub45A3BC(_this, edx0, a2, a3, a4);
 }
