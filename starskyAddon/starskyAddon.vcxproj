@@ -179,6 +179,7 @@
     <ClInclude Include="detours\detver.h" />
     <ClInclude Include="detours\syelog.h" />
     <ClInclude Include="DInputHook.h" />
+    <ClInclude Include="GameArchives.h" />
     <ClInclude Include="GameClasses\ResourceLoader.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="OverriddenFunctions.h" />

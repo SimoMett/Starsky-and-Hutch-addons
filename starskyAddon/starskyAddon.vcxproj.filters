@@ -71,6 +71,9 @@
     <ClInclude Include="GameClasses\ResourceLoader.h">
       <Filter>GameClasses</Filter>
     </ClInclude>
+    <ClInclude Include="GameArchives.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib">
