@@ -14,7 +14,7 @@ struct BTWArchive
 
 	unsigned int namesEntryStart;//At the pointed address start a string with (probably) names of files contained in the archive
 	unsigned int namesEntrySize;//size of the long string
-	char unkPNG[4];//HiResTex.btw and LoResTex.btw have "‰PNG" here. City.btw doesn't
+	//char unkPNG[4];//HiResTex.btw and LoResTex.btw have "‰PNG" here. City.btw doesn't -> THAT'S A PNG FILE!!
 };
 
 /*
