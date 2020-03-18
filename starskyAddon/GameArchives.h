@@ -23,18 +23,18 @@ struct BTWArchive
 	unsigned int unk12DataChunkSize;
 
 	unsigned int usedFileTypesStringStart;
-	unsigned int usedFileTypesStringSize;
+	unsigned int usedFileTypesStringSize;//Number or actual types of file
 
 	unsigned int unk5DataChunkStart;
-	unsigned int unk5DataChunkSize;
+	unsigned int unk5DataChunkSize;//Size in "4 bytes" (number of bytes: unk5DataChunkSize*4)
 
 	unsigned int namesEntryStart;//At the pointed address start a string with (probably) names of files contained in the archive
-	unsigned int namesEntrySize;//size of the long string
+	unsigned int namesEntrySize;//size of the long string (in bytes)
 	//first file start
 };
 
 /*
 	Notes:
-	- At the address of "sizeOfSomething" apparently begins another chunk of data.
 	- The string "‰PNG" always occupies a multiple of 4 position (maybe it's useless)
+	- Files seem to be concatenated
 */
