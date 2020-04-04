@@ -4,6 +4,7 @@
 #define GAME_ASM_POINTS_UPDATE 0x4FB314 //This address maybe is incorrect. It bugs collision with dynamic objects
 #define GAME_ACTION_FUNC 0x501d6f //accepts 3 parameters (int, int, float)
 #define GAME_START_SIREN_SOUND 0x50E321
+#define GAME_GIVE_WEAPON 0x501c21
 //#define GAME_SPAWN_VEHICLE //nope
 //#define GAME_TO_BE_DEFINED_FUNC 0x59A500
 #define GAME_TO_BE_DEFINED_FUNC 0x5FDE03

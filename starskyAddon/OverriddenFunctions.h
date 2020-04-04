@@ -14,6 +14,7 @@ typedef int (__fastcall* sub_50E4DA)(int _this, float a);
 typedef signed int(__fastcall* sub_45CF74)(DWORD * _this,int a2, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite);
 typedef int(__fastcall* sub_45AA9B)(DWORD* _this);
 typedef int(__fastcall* sub_45A3BC)(DWORD* _this, int edx0, char* a2, int a3, int a4);
+typedef void(__cdecl* GiveWeaponFuncType)(int weapon, short ammo);
 
 #define TO_BE_TESTED_SIGNATURE int a1
 #define TO_BE_TESTED_RETURN_TYPE char *
@@ -30,6 +31,8 @@ extern sub_50E4DA sub50E4DA;
 extern sub_45CF74 sub45CF74;
 extern sub_45AA9B sub45AA9B;
 extern sub_45A3BC sub45A3BC;
+extern GiveWeaponFuncType originalGiveWeapon;
+
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
 void overriddenActionFunc(int a, int type, float time);
@@ -42,5 +45,6 @@ int __fastcall hookedSub_50E4DA(int _this, float a);
 signed int __fastcall hookedSub_45CF74(DWORD* _this, int a2, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite);
 int __fastcall hookedSub_45AA9B(DWORD* _this);
 int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4);
+void __cdecl overriddenGiveWeapon(int weapon, short ammo);
 
 #undef TO_BE_TESTED_SIGNATURE

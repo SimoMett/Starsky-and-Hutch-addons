@@ -16,6 +16,8 @@ sub_50E4DA sub50E4DA = (sub_50E4DA)0x50E4DA;
 sub_45CF74 sub45CF74 = (sub_45CF74)0x45CF74;
 sub_45AA9B sub45AA9B = (sub_45AA9B)0x45AA9B;
 sub_45A3BC sub45A3BC = (sub_45A3BC)0x45A3BC;
+GiveWeaponFuncType originalGiveWeapon = (GiveWeaponFuncType)GAME_GIVE_WEAPON;
+
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
@@ -38,6 +40,12 @@ void overriddenActionFunc(int a, int type, float time)
 {
 	printf("Action(%d %d %f)\n", a, type, time);
 	originalActionFunc(a, type, time);
+}
+
+void __cdecl overriddenGiveWeapon(int weapon, short ammoRounds)
+{
+	cout << "GiveWeapon(" << weapon << "," << ammoRounds << ")" << endl;
+	originalGiveWeapon(weapon, ammoRounds);
 }
 
 HANDLE WINAPI overriddenCreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
