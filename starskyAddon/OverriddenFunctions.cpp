@@ -42,6 +42,17 @@ void overriddenActionFunc(int a, int type, float time)
 	originalActionFunc(a, type, time);
 }
 
+enum HutchWeapons
+{
+	BigRevolver = 1,
+	HutchRevolver,
+	Pistol9mm,
+	Uzi=5,
+	NpcRifle=7,
+	Sawnoff,
+	Sawnoff2
+};
+
 void __cdecl overriddenGiveWeapon(int weapon, short ammoRounds)
 {
 	cout << "GiveWeapon(" << weapon << "," << ammoRounds << ")" << endl;

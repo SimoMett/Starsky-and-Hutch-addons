@@ -80,6 +80,10 @@ DWORD WINAPI keysLoop(void * data)
 				int* strangeNumber = (int*)0x692450;
 				originalActionFunc(*strangeNumber,actionType,actionTimer);
 			}
+			if (GetAsyncKeyState('G') & 0x8000)
+			{
+				overriddenGiveWeapon(11, 1);
+			}
 		}
 	}
 }
