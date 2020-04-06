@@ -42,6 +42,9 @@
     <ClCompile Include="GameClasses\ResourceLoader.cpp">
       <Filter>GameClasses</Filter>
     </ClCompile>
+    <ClCompile Include="CUnk1.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StarskyAddresses.h">
@@ -72,6 +75,9 @@
       <Filter>GameClasses</Filter>
     </ClInclude>
     <ClInclude Include="GameArchives.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="CUnk1.h">
       <Filter>GameClasses</Filter>
     </ClInclude>
   </ItemGroup>

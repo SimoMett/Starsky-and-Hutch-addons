@@ -10,6 +10,8 @@
 #define GAME_TO_BE_DEFINED_FUNC 0x5FDE03
 #define RESOURCE_FUNC 0x45E3E0//maybe
 
+#define UNK_CONSTRUCTOR 0x402580
+
 enum GameActionTypes
 {
 	Turbo,
@@ -24,6 +26,17 @@ enum GameActionTypes
 	NoEnemyDamage=17,
 	TwoWheels,
 	CRASH_DONOTUSE
+};
+
+enum HutchWeapons
+{
+	SuperRevolver = 1,
+	HutchColtPython,
+	Pistol9mm,
+	Mac10 = 5,
+	NpcRifle = 7,
+	Sawnoff,
+	Sawnoff2
 };
 
 /*Here I will write some notes too.

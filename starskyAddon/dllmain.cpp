@@ -82,7 +82,7 @@ DWORD WINAPI keysLoop(void * data)
 			}
 			if (GetAsyncKeyState('G') & 0x8000)
 			{
-				overriddenGiveWeapon(11, 1);
+				overriddenGiveWeapon(HutchWeapons::NpcRifle, 2);
 			}
 		}
 	}

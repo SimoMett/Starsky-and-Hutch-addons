@@ -168,6 +168,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CheatMenu.cpp" />
+    <ClCompile Include="CUnk1.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GameClasses\ResourceLoader.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheatMenu.h" />
+    <ClInclude Include="CUnk1.h" />
     <ClInclude Include="detours\detours.h" />
     <ClInclude Include="detours\detver.h" />
     <ClInclude Include="detours\syelog.h" />

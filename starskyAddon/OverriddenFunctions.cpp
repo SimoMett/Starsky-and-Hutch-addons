@@ -18,6 +18,7 @@ sub_45AA9B sub45AA9B = (sub_45AA9B)0x45AA9B;
 sub_45A3BC sub45A3BC = (sub_45A3BC)0x45A3BC;
 GiveWeaponFuncType originalGiveWeapon = (GiveWeaponFuncType)GAME_GIVE_WEAPON;
 
+UnkCtor originalUnkCtor = (UnkCtor)UNK_CONSTRUCTOR;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
@@ -41,17 +42,6 @@ void overriddenActionFunc(int a, int type, float time)
 	printf("Action(%d %d %f)\n", a, type, time);
 	originalActionFunc(a, type, time);
 }
-
-enum HutchWeapons
-{
-	BigRevolver = 1,
-	HutchRevolver,
-	Pistol9mm,
-	Uzi=5,
-	NpcRifle=7,
-	Sawnoff,
-	Sawnoff2
-};
 
 void __cdecl overriddenGiveWeapon(int weapon, short ammoRounds)
 {
