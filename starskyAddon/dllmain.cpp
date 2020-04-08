@@ -149,6 +149,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			DetourAttach(&(PVOID&)sub45A3BC, (PVOID)hookedSub_45A3BC);
 			DetourAttach(&(PVOID&)originalGiveWeapon, (PVOID)overriddenGiveWeapon);
 
+			initDI8Hook2();
+
 			DetourTransactionCommit();
 			break;
 		}

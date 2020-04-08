@@ -37,7 +37,26 @@ int __stdcall hookedDInputCreate(int hInst, int version, int c, int d, int e)
 	return originalDInputCreate(hInst, version, c, d, e);
 }
 
-//
+//method2
+
+//TODO hook back TranslateMessage
+
+typedef LRESULT(WINAPI* SendMessageA_t)(HWND,UINT,WPARAM,LPARAM);
+SendMessageA_t originalSendMessageA;
+
+BOOL WINAPI hookedSendMessageA(HWND  hWnd,UINT  Msg,WPARAM  wParam,LPARAM  lParam)
+{	
+	cout << Msg << endl;
+	return originalSendMessageA( hWnd,  Msg,  wParam,  lParam);
+}
+
+void initDI8Hook2()
+{
+	originalSendMessageA = SendMessageA;
+	cout << "di8: " << DetourAttach(&(PVOID&)originalSendMessageA, hookedSendMessageA) << endl;
+}
+
+//method3
 typedef HRESULT(WINAPI* IDirectInputDevice_GetDeviceData)(IDirectInputDevice8*, DWORD, LPDIDEVICEOBJECTDATA, LPDWORD, DWORD);
 
 IDirectInputDevice_GetDeviceData originalGetDeviceState = nullptr;
