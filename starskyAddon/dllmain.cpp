@@ -136,7 +136,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			DetourAttach(&(PVOID &)originalToBeDefined, (PBYTE)overriddenToBeDefined);
 
 			//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DirectInputHook, NULL, NULL, NULL);
-			DirectInputHook();
+			//DirectInputHook();
 
 			DetourAttach(&(PVOID&)originalResource, (PVOID)overriddenResource);
 
@@ -149,7 +149,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			DetourAttach(&(PVOID&)sub45A3BC, (PVOID)hookedSub_45A3BC);
 			DetourAttach(&(PVOID&)originalGiveWeapon, (PVOID)overriddenGiveWeapon);
 
-			DetourTransactionCommit();		
+			DetourTransactionCommit();
 			break;
 		}
 		case DLL_THREAD_ATTACH:
