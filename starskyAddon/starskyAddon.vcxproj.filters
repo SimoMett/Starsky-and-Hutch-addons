@@ -65,9 +65,6 @@
     <ClInclude Include="CheatMenu.h">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="DInputHook.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>FileLogClass</Filter>
     </ClInclude>
