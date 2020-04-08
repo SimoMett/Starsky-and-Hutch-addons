@@ -38,22 +38,20 @@ int __stdcall hookedDInputCreate(int hInst, int version, int c, int d, int e)
 }
 
 //method2
+typedef BOOL(WINAPI* TranslateMessage_t)(const MSG*);
+TranslateMessage_t originalTranslateMessage;
 
-//TODO hook back TranslateMessage
-
-typedef LRESULT(WINAPI* SendMessageA_t)(HWND,UINT,WPARAM,LPARAM);
-SendMessageA_t originalSendMessageA;
-
-BOOL WINAPI hookedSendMessageA(HWND  hWnd,UINT  Msg,WPARAM  wParam,LPARAM  lParam)
+BOOL WINAPI hookedTranslateMessage(const MSG * msg)
 {	
-	cout << Msg << endl;
-	return originalSendMessageA( hWnd,  Msg,  wParam,  lParam);
+	if (msg->message == 0xff)
+		printf("di8 %d: %d\n", msg->time, msg->message);
+	return originalTranslateMessage(msg);
 }
 
 void initDI8Hook2()
 {
-	originalSendMessageA = SendMessageA;
-	cout << "di8: " << DetourAttach(&(PVOID&)originalSendMessageA, hookedSendMessageA) << endl;
+	originalTranslateMessage = TranslateMessage;
+	cout << "di8: " << DetourAttach(&(PVOID&)originalTranslateMessage, hookedTranslateMessage) << endl;
 }
 
 //method3
