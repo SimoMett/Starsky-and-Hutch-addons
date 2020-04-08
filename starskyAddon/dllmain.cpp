@@ -13,8 +13,7 @@
 
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
-#include "OverriddenFunctions.h"
-#include "DInputHook.h"
+#include "OverriddenFunctions.h"s
 #include "Logger.h"
 #include "CheatMenu.h"
 
