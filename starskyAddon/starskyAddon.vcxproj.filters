@@ -116,6 +116,9 @@
     <ClInclude Include="imgui\imgui_impl_dx9.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib">

@@ -12,6 +12,8 @@
 
 #define UNK_CONSTRUCTOR 0x402580
 
+#define GAME_CREATE_WINDOW_FUNC 0x41694F
+
 enum GameActionTypes
 {
 	Turbo,

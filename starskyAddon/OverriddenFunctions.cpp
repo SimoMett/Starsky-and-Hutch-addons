@@ -1,5 +1,9 @@
 #include <csignal>
 #include "OverriddenFunctions.h"
+#include "main.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+#include "imgui/imgui_impl_dx9.h"
 
 using std::cout;
 using std::string;
@@ -17,6 +21,7 @@ sub_45CF74 sub45CF74 = (sub_45CF74)0x45CF74;
 sub_45AA9B sub45AA9B = (sub_45AA9B)0x45AA9B;
 sub_45A3BC sub45A3BC = (sub_45A3BC)0x45A3BC;
 GiveWeaponFuncType originalGiveWeapon = (GiveWeaponFuncType)GAME_GIVE_WEAPON;
+CreateGameWindowFuncType originalCreateGameWindow = (CreateGameWindowFuncType)GAME_CREATE_WINDOW_FUNC;
 
 UnkCtor originalUnkCtor = (UnkCtor)UNK_CONSTRUCTOR;
 
@@ -136,4 +141,25 @@ int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4
 	string str(a2);
 	cout << "hookedSub_45A3BC(" <<std::hex<< _this<<", "<<edx0 << ", " << str << ", " << a3 << ", " << a4 << ")" << endl;
 	return sub45A3BC(_this, edx0, a2, a3, a4);
+}
+
+static bool init = false;
+
+HWND __cdecl overriddenCreateGameWindow(HINSTANCE hInstance)
+{
+	HWND hwnd=originalCreateGameWindow(hInstance);
+	printf("CreateGameWindow(%d) => %d\n", hInstance, hwnd);
+
+	if (!init)
+	{
+		ImGui::CreateContext();
+		static ImGuiIO& io = ImGui::GetIO();
+		ImGui::StyleColorsDark();
+
+		ImGui_ImplWin32_Init(hwnd);
+		//ImGui_ImplDX9_Init(g_pd3dDevice);
+		init = true;
+	}
+
+	return hwnd;
 }

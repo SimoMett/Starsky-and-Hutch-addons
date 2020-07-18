@@ -6,11 +6,11 @@
 #include <Psapi.h>
 #include <fstream>
 
-#include <d3d9.h>
 #include <d3dx9.h>
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
+#include "main.h"
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
 #include "OverriddenFunctions.h"
@@ -127,8 +127,6 @@ DWORD WINAPI Input(void* data)
 	}
 }
 
-LPDIRECT3DDEVICE9 g_pd3dDevice = NULL;
-
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     switch (ul_reason_for_call)
@@ -167,19 +165,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			DetourAttach(&(PVOID&)sub45A3BC, (PVOID)hookedSub_45A3BC);
 			DetourAttach(&(PVOID&)originalGiveWeapon, (PVOID)overriddenGiveWeapon);
 
+			DetourAttach(&(PVOID&)originalCreateGameWindow, (PVOID)overriddenCreateGameWindow);
+
 			initDI8Hook2();
 
 			DetourTransactionCommit();
-
-
-			ImGui::CreateContext();
-			static ImGuiIO& io = ImGui::GetIO();
-			ImGui::StyleColorsDark();
-
-			HWND hwndStarsky=FindWindow(NULL, LPCWSTR("Starsky & Hutch") );
-			printf("hw: %d", hwndStarsky);
-			ImGui_ImplWin32_Init(hwndStarsky);
-			ImGui_ImplDX9_Init(g_pd3dDevice);
 
 			break;
 		}

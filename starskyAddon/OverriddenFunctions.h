@@ -15,8 +15,11 @@ typedef signed int(__fastcall* sub_45CF74)(DWORD * _this,int a2, LPCVOID lpBuffe
 typedef int(__fastcall* sub_45AA9B)(DWORD* _this);
 typedef int(__fastcall* sub_45A3BC)(DWORD* _this, int edx0, char* a2, int a3, int a4);
 typedef void(__cdecl* GiveWeaponFuncType)(int weapon, short ammo);
+typedef HWND(__cdecl* CreateGameWindowFuncType)(HINSTANCE);
 
 typedef void(__thiscall* UnkCtor)(int param);
+
+
 
 #define TO_BE_TESTED_SIGNATURE int a1
 #define TO_BE_TESTED_RETURN_TYPE char *
@@ -35,6 +38,7 @@ extern sub_45AA9B sub45AA9B;
 extern sub_45A3BC sub45A3BC;
 extern GiveWeaponFuncType originalGiveWeapon;
 extern UnkCtor originalUnkCtor;
+extern CreateGameWindowFuncType originalCreateGameWindow;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
@@ -49,5 +53,6 @@ signed int __fastcall hookedSub_45CF74(DWORD* _this, int a2, LPCVOID lpBuffer, D
 int __fastcall hookedSub_45AA9B(DWORD* _this);
 int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4);
 void __cdecl overriddenGiveWeapon(int weapon, short ammo);
+HWND __cdecl overriddenCreateGameWindow(HINSTANCE hInstance);
 
 #undef TO_BE_TESTED_SIGNATURE
