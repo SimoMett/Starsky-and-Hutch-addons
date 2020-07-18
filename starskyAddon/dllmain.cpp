@@ -18,6 +18,11 @@
 #include "Logger.h"
 #include "CheatMenu.h"
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+#include "imgui/imgui_impl_win32.cpp"
+#include "imgui/imgui_impl_dx9.h"
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -84,6 +89,17 @@ DWORD WINAPI keysLoop(void * data)
 			{
 				overriddenGiveWeapon(HutchWeapons::NpcRifle, 2);
 			}
+			if (GetAsyncKeyState('U') & 0x8000)
+			{
+				ImGui_ImplDX9_NewFrame();
+				ImGui_ImplWin32_NewFrame();
+				ImGui::NewFrame();
+
+				bool open = true;
+				ImGui::Begin("TestGui", &open);
+				ImGui::Text("This is some useful text.");
+				ImGui::End();
+			}
 		}
 	}
 }
@@ -110,6 +126,8 @@ DWORD WINAPI Input(void* data)
 		}
 	}
 }
+
+LPDIRECT3DDEVICE9 g_pd3dDevice = NULL;
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
@@ -152,6 +170,17 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			initDI8Hook2();
 
 			DetourTransactionCommit();
+
+
+			ImGui::CreateContext();
+			static ImGuiIO& io = ImGui::GetIO();
+			ImGui::StyleColorsDark();
+
+			HWND hwndStarsky=FindWindow(NULL, LPCWSTR("Starsky & Hutch") );
+			printf("hw: %d", hwndStarsky);
+			ImGui_ImplWin32_Init(hwndStarsky);
+			ImGui_ImplDX9_Init(g_pd3dDevice);
+
 			break;
 		}
 		case DLL_THREAD_ATTACH:
