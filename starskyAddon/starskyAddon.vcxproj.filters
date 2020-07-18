@@ -80,6 +80,9 @@
     <ClInclude Include="CUnk1.h">
       <Filter>GameClasses</Filter>
     </ClInclude>
+    <ClInclude Include="HookSystem.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib">

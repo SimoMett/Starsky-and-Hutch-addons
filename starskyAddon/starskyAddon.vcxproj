@@ -183,6 +183,7 @@
     <ClInclude Include="DInputHook.h" />
     <ClInclude Include="GameArchives.h" />
     <ClInclude Include="GameClasses\ResourceLoader.h" />
+    <ClInclude Include="HookSystem.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="OverriddenFunctions.h" />
     <ClInclude Include="StarskyAddresses.h" />

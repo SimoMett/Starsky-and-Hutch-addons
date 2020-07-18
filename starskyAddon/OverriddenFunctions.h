@@ -18,6 +18,8 @@ typedef void(__cdecl* GiveWeaponFuncType)(int weapon, short ammo);
 
 typedef void(__thiscall* UnkCtor)(int param);
 
+typedef int(__fastcall* sub_43DDE8)(DWORD*, int, char*, int, int);
+
 #define TO_BE_TESTED_SIGNATURE int a1
 #define TO_BE_TESTED_RETURN_TYPE char *
 typedef TO_BE_TESTED_RETURN_TYPE (*overriddenToBeDefinedFuncType)(TO_BE_TESTED_SIGNATURE);
@@ -35,6 +37,7 @@ extern sub_45AA9B sub45AA9B;
 extern sub_45A3BC sub45A3BC;
 extern GiveWeaponFuncType originalGiveWeapon;
 extern UnkCtor originalUnkCtor;
+extern sub_43DDE8 sub43DDE8;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
@@ -49,5 +52,6 @@ signed int __fastcall hookedSub_45CF74(DWORD* _this, int a2, LPCVOID lpBuffer, D
 int __fastcall hookedSub_45AA9B(DWORD* _this);
 int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4);
 void __cdecl overriddenGiveWeapon(int weapon, short ammo);
+int __fastcall hookedSub_43DDE8(DWORD * _this, int edx0,char* btwFileName, int a3, int a4);
 
 #undef TO_BE_TESTED_SIGNATURE

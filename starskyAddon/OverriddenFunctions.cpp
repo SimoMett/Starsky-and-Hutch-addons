@@ -20,6 +20,8 @@ GiveWeaponFuncType originalGiveWeapon = (GiveWeaponFuncType)GAME_GIVE_WEAPON;
 
 UnkCtor originalUnkCtor = (UnkCtor)UNK_CONSTRUCTOR;
 
+sub_43DDE8 sub43DDE8 = (sub_43DDE8)0x43DDE8;
+
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
 {
@@ -124,7 +126,9 @@ signed int __fastcall hookedSub_45CF74(DWORD* _this, int a2, LPCVOID lpBuffer, D
 //unknown atm
 int __fastcall hookedSub_45AA9B(DWORD* _this)
 {
-	cout << "sub_45AA9B: " << std::hex << _this << endl;
+	//_this is equal to 0x651388
+	//0x45a577 writes into it at startup
+	cout << "loadBTWs( " << std::hex << _this <<" )"<<endl;
 	return sub45AA9B(_this);
 }
 
@@ -134,6 +138,12 @@ int __fastcall hookedSub_45AA9B(DWORD* _this)
 int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4)
 {
 	string str(a2);
-	cout << "hookedSub_45A3BC(" <<std::hex<< _this<<", "<<edx0 << ", " << str << ", " << a3 << ", " << a4 << ")" << endl;
+	cout << "loadResourceBtw(" <<std::hex<< _this<<", "<<edx0 << ", " << str << ", " << a3 << ", " << a4 << ")" << endl;
 	return sub45A3BC(_this, edx0, a2, a3, a4);
+}
+
+int __fastcall hookedSub_43DDE8(DWORD * _this, int edx0, char* btwFileName, int a3, int a4)
+{
+	cout << "loadBtwActualFunc( " << std::hex << _this << ", "<<edx0<<", "<<btwFileName << ", " << a3 << ", " << a4 <<")"<<endl;
+	return sub43DDE8(_this, edx0, btwFileName, a3, a4);
 }
