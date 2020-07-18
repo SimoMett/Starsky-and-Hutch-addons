@@ -1,9 +1,7 @@
 #include <csignal>
 #include "OverriddenFunctions.h"
 #include "main.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_win32.h"
-#include "imgui/imgui_impl_dx9.h"
+
 
 using std::cout;
 using std::string;
@@ -157,7 +155,7 @@ HWND __cdecl overriddenCreateGameWindow(HINSTANCE hInstance)
 		ImGui::StyleColorsDark();
 
 		ImGui_ImplWin32_Init(hwnd);
-		//ImGui_ImplDX9_Init(g_pd3dDevice);
+		//ImGui_ImplDX8_Init(d3d8Device);
 		init = true;
 	}
 

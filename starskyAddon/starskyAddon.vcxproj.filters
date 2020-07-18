@@ -57,7 +57,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_impl_dx9.cpp">
+    <ClCompile Include="imgui\imgui_impl_dx8.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,11 +113,11 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui_impl_dx9.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
       <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_dx8.h">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

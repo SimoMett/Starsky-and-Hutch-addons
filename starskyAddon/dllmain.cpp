@@ -6,10 +6,6 @@
 #include <Psapi.h>
 #include <fstream>
 
-#include <d3dx9.h>
-#pragma comment(lib, "d3d9.lib")
-#pragma comment(lib, "d3dx9.lib")
-
 #include "main.h"
 #include "detours/detours.h"
 #include "StarskyAddresses.h"
@@ -21,7 +17,7 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_win32.cpp"
-#include "imgui/imgui_impl_dx9.h"
+#include "imgui/imgui_impl_dx8.h"
 
 using std::cout;
 using std::endl;
@@ -91,7 +87,7 @@ DWORD WINAPI keysLoop(void * data)
 			}
 			if (GetAsyncKeyState('U') & 0x8000)
 			{
-				ImGui_ImplDX9_NewFrame();
+				ImGui_ImplDX8_NewFrame();
 				ImGui_ImplWin32_NewFrame();
 				ImGui::NewFrame();
 
