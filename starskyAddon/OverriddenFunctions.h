@@ -3,6 +3,7 @@
 #include <iostream>
 #include <Windows.h>
 #include "StarskyAddresses.h"
+#include "main.h"
 
 typedef void (*ActionFuncType)(int a, int type, float time);
 typedef HANDLE (WINAPI* CreateFileAFuncType)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
@@ -16,6 +17,7 @@ typedef int(__fastcall* sub_45AA9B)(DWORD* _this);
 typedef int(__fastcall* sub_45A3BC)(DWORD* _this, int edx0, char* a2, int a3, int a4);
 typedef void(__cdecl* GiveWeaponFuncType)(int weapon, short ammo);
 typedef HWND(__cdecl* CreateGameWindowFuncType)(HINSTANCE);
+typedef int(__stdcall* Direct3DCreate8FuncType)(int);
 
 typedef void(__thiscall* UnkCtor)(int param);
 
@@ -39,6 +41,7 @@ extern sub_45A3BC sub45A3BC;
 extern GiveWeaponFuncType originalGiveWeapon;
 extern UnkCtor originalUnkCtor;
 extern CreateGameWindowFuncType originalCreateGameWindow;
+extern Direct3DCreate8FuncType originalDirect3DCreate8;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
@@ -54,5 +57,6 @@ int __fastcall hookedSub_45AA9B(DWORD* _this);
 int __fastcall hookedSub_45A3BC(DWORD* _this, int edx0, char* a2, int a3, int a4);
 void __cdecl overriddenGiveWeapon(int weapon, short ammo);
 HWND __cdecl overriddenCreateGameWindow(HINSTANCE hInstance);
+int __stdcall overriddenDirect3DCreate8(int SDKVersion);
 
 #undef TO_BE_TESTED_SIGNATURE

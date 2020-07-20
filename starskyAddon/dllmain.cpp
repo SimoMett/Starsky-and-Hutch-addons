@@ -85,16 +85,17 @@ DWORD WINAPI keysLoop(void * data)
 			{
 				overriddenGiveWeapon(HutchWeapons::NpcRifle, 2);
 			}
-			if (GetAsyncKeyState('U') & 0x8000)
+			if (GetAsyncKeyState('U') & 0x8000)//Crashes (and, i know, improper used)
 			{
+				//ImGui_ImplWin32_NewFrame();
 				ImGui_ImplDX8_NewFrame();
-				ImGui_ImplWin32_NewFrame();
-				ImGui::NewFrame();
-
-				bool open = true;
+				
+				//ImGui::NewFrame();
+				
+				/*bool open = true;
 				ImGui::Begin("TestGui", &open);
-				ImGui::Text("This is some useful text.");
-				ImGui::End();
+				ImGui::Text("This is some useful text.");*/
+				//ImGui::End();
 			}
 		}
 	}
@@ -162,6 +163,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			DetourAttach(&(PVOID&)originalGiveWeapon, (PVOID)overriddenGiveWeapon);
 
 			DetourAttach(&(PVOID&)originalCreateGameWindow, (PVOID)overriddenCreateGameWindow);
+			DetourAttach(&(PVOID&)originalDirect3DCreate8, (PVOID)overriddenDirect3DCreate8);
 
 			initDI8Hook2();
 

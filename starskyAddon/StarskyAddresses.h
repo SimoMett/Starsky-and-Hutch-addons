@@ -14,6 +14,8 @@
 
 #define GAME_CREATE_WINDOW_FUNC 0x41694F
 
+#define DIRECT3DCREATE8_FUNC 0x5B8C90
+
 enum GameActionTypes
 {
 	Turbo,

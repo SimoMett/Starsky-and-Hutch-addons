@@ -20,6 +20,7 @@ sub_45AA9B sub45AA9B = (sub_45AA9B)0x45AA9B;
 sub_45A3BC sub45A3BC = (sub_45A3BC)0x45A3BC;
 GiveWeaponFuncType originalGiveWeapon = (GiveWeaponFuncType)GAME_GIVE_WEAPON;
 CreateGameWindowFuncType originalCreateGameWindow = (CreateGameWindowFuncType)GAME_CREATE_WINDOW_FUNC;
+Direct3DCreate8FuncType originalDirect3DCreate8 = (Direct3DCreate8FuncType)DIRECT3DCREATE8_FUNC;
 
 UnkCtor originalUnkCtor = (UnkCtor)UNK_CONSTRUCTOR;
 
@@ -145,8 +146,20 @@ static bool init = false;
 
 HWND __cdecl overriddenCreateGameWindow(HINSTANCE hInstance)
 {
-	HWND hwnd=originalCreateGameWindow(hInstance);
-	printf("CreateGameWindow(%d) => %d\n", hInstance, hwnd);
+	gameWindowHwnd=originalCreateGameWindow(hInstance);
+	printf("CreateGameWindow(%d) => %d\n", hInstance, gameWindowHwnd);
+
+	return gameWindowHwnd;
+}
+
+/*
+	'device' (below) is also stored at:	0x0076357C
+										0x7AF235D8
+*/
+int __stdcall overriddenDirect3DCreate8(int SDKVersion)
+{
+	int device=originalDirect3DCreate8(SDKVersion);
+	printf("Direct3DCreate8(%d) => %d\n",SDKVersion, device);
 
 	if (!init)
 	{
@@ -154,10 +167,10 @@ HWND __cdecl overriddenCreateGameWindow(HINSTANCE hInstance)
 		static ImGuiIO& io = ImGui::GetIO();
 		ImGui::StyleColorsDark();
 
-		ImGui_ImplWin32_Init(hwnd);
-		//ImGui_ImplDX8_Init(d3d8Device);
+		ImGui_ImplWin32_Init(gameWindowHwnd);
+		ImGui_ImplDX8_Init((IDirect3DDevice8*)device);
 		init = true;
 	}
 
-	return hwnd;
+	return device;
 }
