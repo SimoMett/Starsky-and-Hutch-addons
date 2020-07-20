@@ -21,6 +21,7 @@ GiveWeaponFuncType originalGiveWeapon = (GiveWeaponFuncType)GAME_GIVE_WEAPON;
 UnkCtor originalUnkCtor = (UnkCtor)UNK_CONSTRUCTOR;
 
 sub_43DDE8 sub43DDE8 = (sub_43DDE8)0x43DDE8;
+UpdateEntityPosFuncType originalUpdateEntityPos = (UpdateEntityPosFuncType)UPDATE_ZEBRA3_POS_FUNC;
 
 
 BOOL WINAPI overriddenReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)//TODO cannot read file name
@@ -146,4 +147,16 @@ int __fastcall hookedSub_43DDE8(DWORD * _this, int edx0, char* btwFileName, int 
 {
 	cout << "loadBtwActualFunc( " << std::hex << _this << ", "<<edx0<<", "<<btwFileName << ", " << a3 << ", " << a4 <<")"<<endl;
 	return sub43DDE8(_this, edx0, btwFileName, a3, a4);
+}
+
+int __fastcall overriddenUpdateEntityPos(int a1, int a2, float a3)
+{
+	int res = originalUpdateEntityPos(a1, a2, a3);
+	static char count = 0;
+	if (count == 0)
+	{
+		printf("UpdateEntityPos(%d, %d, %f) => %d\n", a1, a2, a3, res);
+	}
+	count = (count + 1) % 50;
+	return res;
 }

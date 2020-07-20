@@ -12,6 +12,8 @@
 
 #define UNK_CONSTRUCTOR 0x402580
 
+#define UPDATE_ZEBRA3_POS_FUNC 0x53AB70
+
 enum GameActionTypes
 {
 	Turbo,
