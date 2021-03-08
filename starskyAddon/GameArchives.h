@@ -35,6 +35,5 @@ struct BTWArchive
 
 /*
 	Notes:
-	- The string "‰PNG" always occupies a multiple of 4 position (maybe it's useless)
 	- Files seem to be concatenated
 */
